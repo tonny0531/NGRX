@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './counter.reducer';
 import { MyCounterComponent } from './my-counter/my-counter.component';
 import { SecComponent } from './sec/sec.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,10 @@ import { SecComponent } from './sec/sec.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ count: counterReducer })
+    StoreModule.forRoot({ count: counterReducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // 要保留幾筆Action紀錄
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

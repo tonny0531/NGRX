@@ -1,21 +1,23 @@
-import { Action } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
+import { decrement, increment, reset } from './counter.actions';
 
 export const initialState = 0;
-export const Incr = 'Incr';
-export const Decr = 'Decr';
-export const Reset = 'Reset';
 
+const _counterReducer = createReducer(
+  initialState,
+  on(increment, (state)=> {
+    console.log('increment')
+    return state+1;
+  }),
+  on(decrement, (state)=> {
+    console.log('decrement')
+    return state-1;}),
+  on(reset, (state)=> {
+    console.log('reset')
+    return 0;}),
+
+)
 
 export function counterReducer(state: number = initialState, action: Action) {
-  console.log(action);
-  switch (action.type) {
-    case Incr:
-      return state + 1;
-    case Decr:
-      return state - 1;
-    case Reset:
-      return 0;
-    default:
-      return state;
-  }
+  return _counterReducer(state, action);
 }
